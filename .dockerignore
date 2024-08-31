@@ -1,0 +1,21 @@
+# Ignore Python cache files
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore virtual environment directories
+venv/
+ENV/
+env/
+.venv/
+
+# Ignore local development files
+*.log
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+
+# Ignore Dockerfile and Compose files not relevant for production
+docker-compose.override.yml
