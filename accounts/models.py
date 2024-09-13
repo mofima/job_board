@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager 
 from django.utils.translation import gettext_lazy as _  
-
+from django.conf import settings
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **otherfields):
@@ -37,3 +37,13 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+class Profile(models.Model):        
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    location = models.CharField(max_length=255, )
+    is_employer = models.BooleanField(default=False)
+    is_job_seeker = models.BooleanField(default=False)
+    bio = models.TextField(blank=True, null=True)
