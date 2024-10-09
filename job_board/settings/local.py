@@ -26,3 +26,40 @@ DATABASES = {
         'PORT': env('POSTGRES_PORT'),
     }
 }
+
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        # "rest_framework.authentication.SessionAuthentication",
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        ],
+}
+
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': None,
+    'JWT_AUTH_REFRESH_COOKIE': None,
+    "JWT_AUTH_HTTPONLY": False,
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
+}
+
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False 
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_NOTIFICATIONS = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:8000/accounts/v1/dj-rest-auth/login/'
+LOGIN_URL = 'http://localhost:8000/accounts/v1/dj-rest-auth/login/'

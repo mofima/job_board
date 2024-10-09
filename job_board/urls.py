@@ -16,8 +16,16 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from dj_rest_auth.registration.views import VerifyEmailView
+from allauth.account.views import ConfirmEmailView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("accounts/v1/dj-rest-auth/", include('dj_rest_auth.urls')),
+    path(
+        'accounts/v1/dj-rest-auth/registration/account-confirm-email/<str:key>/',
+        ConfirmEmailView.as_view()),
+    path("accounts/v1/dj-rest-auth/registration/", include('dj_rest_auth.registration.urls')),
+    path('accounts/v1/dj-rest-auth/account-confirm-email/', VerifyEmailView.as_view(), name='account_email_verification_sent'),
 ]
